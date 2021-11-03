@@ -7,7 +7,7 @@ require_once '../vendor/autoload.php';
 try {
 
 $pclzip = new PclZip(__DIR__ . '/sample.zip');
-$pclzip->extract();
+r($pclzip->extract());
 } catch (\Exception $e) {
     r($e);
 }
