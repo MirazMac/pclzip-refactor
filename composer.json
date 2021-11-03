@@ -1,0 +1,24 @@
+{
+    "name": "mirazmac/pclzip-ng",
+    "type": "library",
+    "description": "A sort of refactor of pclzip",
+    "keywords": [],
+    "homepage": "https://mirazmac.com",
+    "license": "GPL-3.0-only",
+    "authors": [
+        {
+            "name": "Miraz Mac",
+            "email": "mirazmac@gmail.com",
+            "homepage": "https://mirazmac.com",
+            "role": "Original Author"
+        }
+    ],
+    "require": {
+        "php": ">=7.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "MirazMac\\PclZip\\": "src/"
+        }
+    }
+}
