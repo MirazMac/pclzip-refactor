@@ -4,4 +4,10 @@ use MirazMac\PclZip\PclZip;
 
 require_once '../vendor/autoload.php';
 
-$pclzip = new PclZip();
+try {
+
+$pclzip = new PclZip(__DIR__ . '/sample.zip');
+$pclzip->extract();
+} catch (\Exception $e) {
+    r($e);
+}
