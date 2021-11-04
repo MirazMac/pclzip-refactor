@@ -151,6 +151,9 @@ class PclZip
             throw new \RuntimeException("Missing zlib extensions");
         }
 
+        r(static::$PCLZIP_SEPARATOR);
+        exit;
+
         // ----- Set the attributes
         $this->zipname             = $p_zipname;
         $this->zip_fd              = 0;

@@ -31,3 +31,9 @@ try {
 
 So the key difference as of now is the constants should be accessed via the class and you should be ready to catch the exception whenever something goes wrong.
 
+And these following constants ``PCLZIP_READ_BLOCK_SIZE``, ``PCLZIP_SEPARATOR``, ``PCLZIP_TEMPORARY_DIR``, ``PCLZIP_TEMPORARY_FILE_RATIO``. has been changed to ``public`` static variables, as these were meant to be customizable, by defining them on your own. Now to change this just override the values before creating an instance, like this:
+```php
+use MirazMac\PclZip\PclZip;
+
+PclZip::$PCLZIP_TEMPORARY_DIR = '/temp';
+```
