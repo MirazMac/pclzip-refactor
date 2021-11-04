@@ -2,17 +2,20 @@
 
 namespace MirazMac\PclZip;
 
+use MirazMac\PclZip\PclZip;
+
 /**
  * Moved the inline functions to a separate file to meet the PSR standards
  */
 class Helpers
 {
-// --------------------------------------------------------------------------------
-    // Function : PclZipUtilPathReduction()
-    // Description :
-    // Parameters :
-    // Return Values :
-    // --------------------------------------------------------------------------------
+    /**
+     * Originally PclZipUtilPathReduction()
+     *
+     * @param      string  $p_dir  The p dir
+     *
+     * @return     string
+     */
     public static function pclZipUtilPathReduction($p_dir)
     {
         $v_result = "";
@@ -73,7 +76,7 @@ class Helpers
         // ----- Return
         return $v_result;
     }
-    // --------------------------------------------------------------------------------
+
 
     // --------------------------------------------------------------------------------
     // Function : PclZipUtilPathInclusion()
@@ -90,6 +93,20 @@ class Helpers
     //   1 if $p_path is inside directory $p_dir
     //   2 if $p_path is exactly the same as $p_dir
     // --------------------------------------------------------------------------------
+
+
+    /**
+     * Originally: PclZipUtilPathInclusion(), This function indicates if the path $p_path
+     * is under the $p_dir tree. Or, said in an other way, if the file or sub-dir $p_path is inside the dir $p_dir.
+     * The function indicates also if the path is exactly the same as the dir.
+     * This function supports path with duplicated '/' like '//', but does not
+     * support '.' or '..' statements.
+     *
+     * @param      string  $p_dir   The p dir
+     * @param      string  $p_path  The p path
+     *
+     * @return     int
+     */
     public static function pclZipUtilPathInclusion($p_dir, $p_path)
     {
         $v_result = 1;
@@ -151,22 +168,22 @@ class Helpers
             }
         }
 
-        // ----- Return
         return $v_result;
     }
-    // --------------------------------------------------------------------------------
 
-    // --------------------------------------------------------------------------------
-    // Function : PclZipUtilCopyBlock()
-    // Description :
-    // Parameters :
-    //   $p_mode : read/write compression mode
-//             0 : src & dest normal
-//             1 : src gzip, dest normal
-//             2 : src normal, dest gzip
-//             3 : src & dest gzip
-    // Return Values :
-    // --------------------------------------------------------------------------------
+   /**
+    * Originally PclZipUtilCopyBlock(),
+    *
+    * @param      string  $p_src   The p source
+    * @param      string  $p_dest  The p destination
+    * @param      int     $p_size  The p size
+    * @param      int     $p_mode  read/write compression mode, 0 : src & dest normal,
+    *                              1 : src gzip, dest normal
+    *                              2 : src normal, dest gzip
+    *                              3 : src & dest gzip
+    *
+    * @return     int
+    */
     public static function pclZipUtilCopyBlock($p_src, $p_dest, $p_size, $p_mode = 0)
     {
         $v_result = 1;
@@ -201,23 +218,20 @@ class Helpers
             }
         }
 
-        // ----- Return
         return $v_result;
     }
-    // --------------------------------------------------------------------------------
 
-    // --------------------------------------------------------------------------------
-    // Function : PclZipUtilRename()
-    // Description :
-    //   This function tries to do a simple rename() function. If it fails, it
-    //   tries to copy the $p_src file in a new $p_dest file and then unlink the
-    //   first one.
-    // Parameters :
-    //   $p_src : Old filename
-    //   $p_dest : New filename
-    // Return Values :
-    //   1 on success, 0 on failure.
-    // --------------------------------------------------------------------------------
+
+    /**
+     * Originally, PclZipUtilRename().
+     *
+     * This function tries to do a simple rename() function. If it fails, it
+     * tries to copy the $p_src file in a new $p_dest file and then unlink the first one.
+     * @param      string  $p_src   The p source
+     * @param      string  $p_dest  The p destination
+     *
+     * @return     int 1 on success, 0 on failure.
+     */
     public static function pclZipUtilRename($p_src, $p_dest)
     {
         $v_result = 1;
@@ -232,23 +246,20 @@ class Helpers
             }
         }
 
-        // ----- Return
         return $v_result;
     }
-    // --------------------------------------------------------------------------------
 
-    // --------------------------------------------------------------------------------
-    // Function : PclZipUtilOptionText()
-    // Description :
-    //   Translate option value in text. Mainly for debug purpose.
-    // Parameters :
-    //   $p_option : the option value.
-    // Return Values :
-    //   The option text value.
-    // --------------------------------------------------------------------------------
+    /**
+     * Originally: PclZipUtilOptionText(), Translate option value in text. Mainly for debug purpose.
+     *
+     * @param      mixed  $p_option  The p option
+     *
+     * @return     string  The option text value.
+     */
     public static function pclZipUtilOptionText($p_option)
     {
-        $v_list = get_defined_constants();
+        $refl = new \ReflectionClass(PclZip::class);
+        $v_list = $refl->getConstants();
         for (reset($v_list); $v_key = key($v_list); next($v_list)) {
             $v_prefix = substr($v_key, 0, 10);
             if ((($v_prefix == 'OPT') || ($v_prefix == 'CB_') || ($v_prefix == 'ATT')) && ($v_list[$v_key] == $p_option)) {
@@ -260,19 +271,16 @@ class Helpers
 
         return $v_result;
     }
-    // --------------------------------------------------------------------------------
 
-    // --------------------------------------------------------------------------------
-    // Function : PclZipUtilTranslateWinPath()
-    // Description :
-    //   Translate windows path by replacing '\' by '/' and optionally removing
-    //   drive letter.
-    // Parameters :
-    //   $p_path : path to translate.
-    //   $p_remove_disk_letter : true | false
-    // Return Values :
-    //   The path translated.
-    // --------------------------------------------------------------------------------
+    /**
+     * Originally, PclZipUtilTranslateWinPath(). Translate windows path by
+     * replacing '\' by '/' and optionally removing drive letter.
+     *
+     * @param      string  $p_path                The p path
+     * @param      bool    $p_remove_disk_letter  The p remove disk letter
+     *
+     * @return     The path translated.
+     */
     public static function pclZipUtilTranslateWinPath($p_path, $p_remove_disk_letter = true)
     {
         if (stristr(php_uname(), 'windows')) {
